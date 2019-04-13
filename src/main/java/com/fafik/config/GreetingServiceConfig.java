@@ -4,18 +4,17 @@ import com.fafik.services.GreetingRepository;
 import com.fafik.services.GreetingService;
 import com.fafik.services.GreetingServiceFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Controller;
 
-@Configuration
+@Controller
 public class GreetingServiceConfig {
 
     @Bean
-    GreetingServiceFactory greetingServiceFactory(GreetingRepository greetingRepository){
-        return new GreetingServiceFactory(greetingRepository);
+    GreetingServiceFactory greetingServiceFactory(GreetingRepository repository){
+        return new GreetingServiceFactory(repository);
     }
-
 
     @Bean
     @Primary
@@ -37,5 +36,4 @@ public class GreetingServiceConfig {
     GreetingService primaryGermanGreetingService(GreetingServiceFactory greetingServiceFactory){
         return greetingServiceFactory.createGreetingService("de");
     }
-
 }
