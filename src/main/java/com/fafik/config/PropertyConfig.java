@@ -1,17 +1,15 @@
 package com.fafik.config;
 
 import com.fafik.examplebeans.FakeDataSource;
+import com.fafik.examplebeans.FakeJmsBroker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@PropertySource("classpath:datasource.properties")
 public class PropertyConfig {
 
-    @Value("${fafik.user}")
+    @Value("${fafik.username}")
     String user;
 
     @Value("${fafik.password}")
@@ -19,6 +17,15 @@ public class PropertyConfig {
 
     @Value("${fafik.dburl}")
     String url;
+
+    @Value("${fafik.jms.username}")
+    String jmsUsername;
+
+    @Value("${fafik.jms.password}")
+    String jmsPassword;
+
+    @Value("${fafik.jms.dburl}")
+    String jmsUrl;
 
     @Bean
     public FakeDataSource fakeDataSource(){
@@ -29,10 +36,13 @@ public class PropertyConfig {
         return fakeDataSource;
     }
 
-
     @Bean
-    public static PropertySourcesPlaceholderConfigurer properties(){
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        return propertySourcesPlaceholderConfigurer;
+    public FakeJmsBroker fakeJmsBroker(){
+        FakeJmsBroker fakeJmsBroker = new FakeJmsBroker();
+        fakeJmsBroker.setUsername(jmsUsername);
+        fakeJmsBroker.setPassword(jmsPassword);
+        fakeJmsBroker.setUrl(jmsUrl);
+        return fakeJmsBroker;
     }
+
 }
