@@ -1,0 +1,5 @@
+fafik:
+  jms:
+    username: JMS Username
+    password: SecretCode
+    dburl: dsasda
